@@ -1,0 +1,67 @@
+name: Pull Request
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'portalapis/**'
+      - 'buf.gen.yaml'
+      - 'buf.work.yaml'
+jobs:
+  conventional-commits-pr:
+    if: "github.event.pull_request.draft == false && !contains(github.event.head_commit.message, 'Apply automatic changes')"
+    name: Validate Conventional Commits PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: crazy-max/ghaction-dump-context@v1
+      - uses: catalystsquad/action-validate-conventional-commits-pr@v1
+  buf-lint:
+    if: "!contains(github.event.head_commit.message, 'Apply automatic changes')"
+    name: Buf Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: crazy-max/ghaction-dump-context@v1
+      - uses: catalystsquad/action-buf@v1
+        with:
+          buf-user: ${{ secrets.BUF_USER }}
+          buf-token: ${{ secrets.BUF_TOKEN }}
+          token: ${{ secrets.AUTOMATION_PAT }}
+          generate: false
+          generate-typescript: false
+          breaking: false
+          mod-prune: false
+          mod-update: false
+  buf-generate:
+    if: "!contains(github.event.head_commit.message, 'Apply automatic changes')"
+    name: Buf Generate
+    runs-on: ubuntu-latest
+    needs:
+      - buf-lint
+    steps:
+      - uses: crazy-max/ghaction-dump-context@v1
+      - uses: catalystsquad/action-buf@v1
+        with:
+          buf-user: ${{ secrets.BUF_USER }}
+          buf-token: ${{ secrets.BUF_TOKEN }}
+          token: ${{ secrets.AUTOMATION_PAT }}
+          lint: false
+          breaking: false
+          generate-typescript-protos: "portalapis/portal/v1alpha1/api.proto"
+  buf-breaking:
+    if: "!contains(github.event.head_commit.message, 'Apply automatic changes')"
+    name: Buf Breaking
+    runs-on: ubuntu-latest
+    needs:
+      - buf-lint
+      - buf-generate
+    steps:
+      - uses: crazy-max/ghaction-dump-context@v1
+      - uses: catalystsquad/action-buf@v1
+        with:
+          buf-user: ${{ secrets.BUF_USER }}
+          buf-token: ${{ secrets.BUF_TOKEN }}
+          lint: false
+          generate: false
+          generate-typescript: false
+          mod-prune: false
+          mod-update: false

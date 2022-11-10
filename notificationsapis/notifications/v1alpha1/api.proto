@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package notifications.v1alpha1;
+
+import "google/protobuf/struct.proto";
+
+message NotificationsServiceUpsertUsersRequest {
+  repeated google.protobuf.Struct users = 1;
+}
+
+message NotificationsServiceUpsertUsersResponse {
+  repeated google.protobuf.Struct users = 1;
+}
+
+message NotificationsServiceGetUsersRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceGetUsersResponse {
+  repeated google.protobuf.Struct users = 1;
+}
+
+message NotificationsServiceListUsersRequest {
+  int32 limit = 1;
+  int32 skip = 2;
+}
+
+message NotificationsServiceListUsersResponse {
+  repeated google.protobuf.Struct users = 1;
+}
+
+message NotificationsServiceDeleteUsersRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceDeleteUsersResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceGetNotificationsRequest {
+  string user_id = 1;
+  repeated string channels = 2;
+  string query = 3;
+  int32 limit = 4;
+  int32 skip = 5;
+}
+
+message NotificationsServiceGetNotificationsResponse {
+  int32 total = 1;
+  repeated google.protobuf.Struct notifications = 2;
+}
+
+message NotificationsServiceSendNotificationsRequest {
+  repeated google.protobuf.Struct events = 1;
+}
+
+message NotificationsServiceSendNotificationsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceUpdateSubscriptionsRequest {
+  string user_id = 1;
+  repeated google.protobuf.Struct subscribe = 2;
+  repeated string unsubscribe = 3;
+}
+
+message NotificationsServiceUpdateSubscriptionsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceScheduleNotificationsRequest {
+  repeated google.protobuf.Struct notifications = 1;
+}
+
+message NotificationsServiceScheduleNotificationsResponse {
+  bool success = 1;
+}
+
+service NotificationsService {
+  rpc UpsertUsers(NotificationsServiceUpsertUsersRequest) returns (NotificationsServiceUpsertUsersResponse);
+  rpc GetUsers(NotificationsServiceGetUsersRequest) returns (NotificationsServiceGetUsersResponse);
+  rpc ListUsers(NotificationsServiceListUsersRequest) returns (NotificationsServiceListUsersResponse);
+  rpc DeleteUsers(NotificationsServiceDeleteUsersRequest) returns (NotificationsServiceDeleteUsersResponse);
+  rpc GetNotifications(NotificationsServiceGetNotificationsRequest) returns (NotificationsServiceGetNotificationsResponse);
+  rpc SendNotifications(NotificationsServiceSendNotificationsRequest) returns (NotificationsServiceSendNotificationsResponse);
+  rpc UpdateSubscriptions(NotificationsServiceUpdateSubscriptionsRequest) returns (NotificationsServiceUpdateSubscriptionsResponse);
+  rpc ScheduleNotifications(NotificationsServiceScheduleNotificationsRequest) returns (NotificationsServiceScheduleNotificationsResponse);
+}
