@@ -19,4 +19,4 @@ jobs:
           mod-prune: false
           mod-update: false
           push: true
-          push-dir: portalapis
+          push-dir: notificationsapis

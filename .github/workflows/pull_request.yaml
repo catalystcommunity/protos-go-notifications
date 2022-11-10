@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'portalapis/**'
+      - 'notificationsapis/**'
       - 'buf.gen.yaml'
       - 'buf.work.yaml'
 jobs:
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: catalystsquad/action-protoc-go-inject-tag@v1
         with:
-          files: gen/proto/go/portal/v1alpha1/*.pb.go
+          files: gen/proto/go/notifications/v1alpha1/*.pb.go
           commit-message: injected tags
   buf-breaking:
     name: Buf Breaking

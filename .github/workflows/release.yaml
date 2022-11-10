@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'portalapis/**'
+      - 'notificationsapis/**'
       - 'buf.gen.yaml'
       - 'buf.work.yaml'
 jobs:
