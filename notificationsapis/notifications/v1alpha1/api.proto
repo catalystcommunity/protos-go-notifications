@@ -87,7 +87,7 @@ message NotificationsServiceUpdateSubscriptionsResponse {
 }
 
 message NotificationsServiceScheduleNotificationsRequest {
-  repeated google.protobuf.Struct notifications = 1;
+  repeated ScheduledNotification notifications = 1;
 }
 
 message NotificationsServiceScheduleNotificationsResponse {
