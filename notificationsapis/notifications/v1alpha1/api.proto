@@ -1,5 +1,5 @@
 syntax = "proto3";
-//
+import "google/api/annotations.proto";
 
 package notifications.v1alpha1;
 
@@ -15,11 +15,11 @@ message ScheduledNotification {
 }
 
 message ExecuteOnceTrigger {
-    string fire_at = 1;
+  string fire_at = 1;
 }
 
 message CronTrigger {
-    string expression = 1;
+  string expression = 1;
 }
 
 message NotificationsServiceUpsertUsersRequest {
@@ -95,12 +95,44 @@ message NotificationsServiceScheduleNotificationsResponse {
 }
 
 service NotificationsService {
-  rpc UpsertUsers(NotificationsServiceUpsertUsersRequest) returns (NotificationsServiceUpsertUsersResponse);
-  rpc GetUsers(NotificationsServiceGetUsersRequest) returns (NotificationsServiceGetUsersResponse);
-  rpc ListUsers(NotificationsServiceListUsersRequest) returns (NotificationsServiceListUsersResponse);
-  rpc DeleteUsers(NotificationsServiceDeleteUsersRequest) returns (NotificationsServiceDeleteUsersResponse);
-  rpc GetNotifications(NotificationsServiceGetNotificationsRequest) returns (NotificationsServiceGetNotificationsResponse);
-  rpc SendNotifications(NotificationsServiceSendNotificationsRequest) returns (NotificationsServiceSendNotificationsResponse);
-  rpc UpdateSubscriptions(NotificationsServiceUpdateSubscriptionsRequest) returns (NotificationsServiceUpdateSubscriptionsResponse);
-  rpc ScheduleNotifications(NotificationsServiceScheduleNotificationsRequest) returns (NotificationsServiceScheduleNotificationsResponse);
+  rpc UpsertUsers(NotificationsServiceUpsertUsersRequest) returns (NotificationsServiceUpsertUsersResponse) {
+    option (google.api.http) = {
+      put: "/v1/users"
+    };
+  };
+  rpc GetUsers(NotificationsServiceGetUsersRequest) returns (NotificationsServiceGetUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  };
+  rpc ListUsers(NotificationsServiceListUsersRequest) returns (NotificationsServiceListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/list"
+    };
+  };
+  rpc DeleteUsers(NotificationsServiceDeleteUsersRequest) returns (NotificationsServiceDeleteUsersResponse) {
+    option (google.api.http) = {
+      delete: "/v1/users"
+    };
+  };
+  rpc GetNotifications(NotificationsServiceGetNotificationsRequest) returns (NotificationsServiceGetNotificationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notifications"
+    };
+  };
+  rpc SendNotifications(NotificationsServiceSendNotificationsRequest) returns (NotificationsServiceSendNotificationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/notifications"
+    };
+  };
+  rpc UpdateSubscriptions(NotificationsServiceUpdateSubscriptionsRequest) returns (NotificationsServiceUpdateSubscriptionsResponse) {
+    option (google.api.http) = {
+      put: "/v1/subscriptions"
+    };
+  };
+  rpc ScheduleNotifications(NotificationsServiceScheduleNotificationsRequest) returns (NotificationsServiceScheduleNotificationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/notifications"
+    };
+  };
 }
