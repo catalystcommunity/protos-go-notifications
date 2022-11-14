@@ -132,7 +132,7 @@ service NotificationsService {
   };
   rpc ScheduleNotifications(NotificationsServiceScheduleNotificationsRequest) returns (NotificationsServiceScheduleNotificationsResponse) {
     option (google.api.http) = {
-      post: "/v1/notifications"
+      post: "/v1/notifications/schedule"
     };
   };
 }
