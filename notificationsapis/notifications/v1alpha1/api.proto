@@ -6,12 +6,86 @@ package notifications.v1alpha1;
 import "google/protobuf/struct.proto";
 
 message ScheduledNotification {
-  google.protobuf.Struct notification = 1;
+  NotificationEvent notification = 1;
   int64 expire_after = 2;
   oneof trigger {
     ExecuteOnceTrigger execute_once_trigger = 3;
     CronTrigger cron_trigger = 4;
   }
+}
+
+message NotificationUser {
+  string id = 1;
+  string email_address = 2;
+  string last_notification = 5;
+}
+
+message SubscriptionSettings {
+  string topic_prefix = 1;
+  google.protobuf.Struct topic_settings = 2;
+}
+
+message Notification {
+  string id = 1;
+  string subject = 2;
+  bool silent = 3;
+  string created = 4;
+  string updated = 5;
+  string tracking_token = 6;
+  string body = 7;
+  string image_small = 8;
+  string image_large = 9;
+  string track_seen_url = 10;
+  string track_delivered_url = 11;
+  string link_url = 12;
+  string link_text = 13;
+  string confirm_text = 14;
+  string confirm_url = 15;
+  string data = 16;
+  google.protobuf.Struct properties = 17;
+  google.protobuf.Struct channels = 18;
+  NotificationHandledInfo first_delivered = 19;
+  NotificationHandledInfo first_seen = 20;
+  NotificationHandledInfo first_confirmed = 21;
+}
+
+message NotificationHandledInfo {
+  string timestamp = 1;
+  string channel = 2;
+}
+
+message NotificationEvent {
+  string topic = 1;
+  string creator_id = 2;
+  string template_code = 3;
+  google.protobuf.Struct template_variants = 4;
+  string data = 5;
+  string timestamp = 6;
+  NotificationEventFormatting preformatted = 7;
+  google.protobuf.Struct settings = 8;
+  google.protobuf.Struct properties = 9;
+  NotificationEventScheduling scheduling = 10;
+  bool silent = 11;
+  bool test = 12;
+  int32 time_to_live_in_seconds = 13;
+}
+
+message NotificationEventFormatting {
+  google.protobuf.Struct subject = 1;
+  google.protobuf.Struct body = 2;
+  google.protobuf.Struct confirm_text = 3;
+  google.protobuf.Struct image_small = 4;
+  google.protobuf.Struct image_large = 5;
+  google.protobuf.Struct link_url = 6;
+  google.protobuf.Struct link_text = 7;
+  string confirm_mode = 8;
+}
+
+message NotificationEventScheduling {
+  string type = 1;
+  string nextWeekDay = 2;
+  string date = 3;
+  string time = 4;
 }
 
 message ExecuteOnceTrigger {
@@ -23,11 +97,11 @@ message CronTrigger {
 }
 
 message NotificationsServiceUpsertUsersRequest {
-  repeated google.protobuf.Struct users = 1;
+  repeated NotificationUser users = 1;
 }
 
 message NotificationsServiceUpsertUsersResponse {
-  repeated google.protobuf.Struct users = 1;
+  repeated NotificationUser users = 1;
 }
 
 message NotificationsServiceGetUsersRequest {
@@ -35,7 +109,7 @@ message NotificationsServiceGetUsersRequest {
 }
 
 message NotificationsServiceGetUsersResponse {
-  repeated google.protobuf.Struct users = 1;
+  repeated NotificationUser users = 1;
 }
 
 message NotificationsServiceListUsersRequest {
@@ -44,7 +118,7 @@ message NotificationsServiceListUsersRequest {
 }
 
 message NotificationsServiceListUsersResponse {
-  repeated google.protobuf.Struct users = 1;
+  repeated NotificationUser users = 1;
 }
 
 message NotificationsServiceDeleteUsersRequest {
@@ -65,11 +139,11 @@ message NotificationsServiceGetNotificationsRequest {
 
 message NotificationsServiceGetNotificationsResponse {
   int32 total = 1;
-  repeated google.protobuf.Struct notifications = 2;
+  repeated Notification notifications = 2;
 }
 
 message NotificationsServiceSendNotificationsRequest {
-  repeated google.protobuf.Struct notifications = 1;
+  repeated NotificationEvent notifications = 1;
 }
 
 message NotificationsServiceSendNotificationsResponse {
@@ -78,7 +152,7 @@ message NotificationsServiceSendNotificationsResponse {
 
 message NotificationsServiceUpdateSubscriptionsRequest {
   string user_id = 1;
-  repeated google.protobuf.Struct subscribe = 2;
+  repeated SubscriptionSettings subscribe = 2;
   repeated string unsubscribe = 3;
 }
 
