@@ -83,7 +83,7 @@ message NotificationEventFormatting {
 
 message NotificationEventScheduling {
   string type = 1;
-  string nextWeekDay = 2;
+  string next_week_day = 2;
   string date = 3;
   string time = 4;
 }
