@@ -160,11 +160,30 @@ message NotificationsServiceUpdateSubscriptionsResponse {
   bool success = 1;
 }
 
-message NotificationsServiceScheduleNotificationsRequest {
+message NotificationsServiceUpsertScheduledNotificationsRequest {
   repeated ScheduledNotification notifications = 1;
 }
 
-message NotificationsServiceScheduleNotificationsResponse {
+message NotificationsServiceUpsertScheduledNotificationsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceGetScheduledNotificationsRequest {
+  repeated string ids = 1;
+  repeated string user_id = 2;
+  int32 limit = 3;
+  int32 skip = 4;
+}
+
+message NotificationsServiceGetScheduledNotificationsResponse {
+  repeated ScheduledNotification scheduled_notifications = 1;
+}
+
+message NotificationsServiceDeleteScheduledNotificationsRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceDeleteScheduledNotificationsResponse {
   bool success = 1;
 }
 
@@ -204,9 +223,19 @@ service NotificationsService {
       put: "/v1/subscriptions"
     };
   };
-  rpc ScheduleNotifications(NotificationsServiceScheduleNotificationsRequest) returns (NotificationsServiceScheduleNotificationsResponse) {
+  rpc UpsertScheduledNotifications(NotificationsServiceUpsertScheduledNotificationsRequest) returns (NotificationsServiceUpsertScheduledNotificationsResponse) {
     option (google.api.http) = {
-      post: "/v1/notifications/schedule"
+      post: "/v1/notifications/scheduled"
+    };
+  }
+  rpc GetScheduledNotifications(NotificationsServiceGetScheduledNotificationsRequest) returns (NotificationsServiceGetScheduledNotificationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notifications/scheduled"
+    };
+  }
+  rpc DeleteScheduledNotifications(NotificationsServiceDeleteScheduledNotificationsRequest) returns (NotificationsServiceDeleteScheduledNotificationsResponse) {
+    option (google.api.http) = {
+      delete: "/v1/notifications/scheduled"
     };
   };
 }
