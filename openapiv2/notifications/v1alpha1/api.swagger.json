@@ -96,14 +96,102 @@
         ]
       }
     },
-    "/v1/notifications/schedule": {
-      "post": {
-        "operationId": "NotificationsService_ScheduleNotifications",
+    "/v1/notifications/scheduled": {
+      "get": {
+        "operationId": "NotificationsService_GetScheduledNotifications",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1alpha1NotificationsServiceScheduleNotificationsResponse"
+              "$ref": "#/definitions/v1alpha1NotificationsServiceGetScheduledNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "delete": {
+        "operationId": "NotificationsService_DeleteScheduledNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceDeleteScheduledNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "post": {
+        "operationId": "NotificationsService_UpsertScheduledNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceUpsertScheduledNotificationsResponse"
             }
           },
           "default": {
@@ -501,6 +589,14 @@
         }
       }
     },
+    "v1alpha1NotificationsServiceDeleteScheduledNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
     "v1alpha1NotificationsServiceDeleteUsersResponse": {
       "type": "object",
       "properties": {
@@ -520,6 +616,17 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1alpha1Notification"
+          }
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceGetScheduledNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "scheduledNotifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1ScheduledNotification"
           }
         }
       }
@@ -546,14 +653,6 @@
         }
       }
     },
-    "v1alpha1NotificationsServiceScheduleNotificationsResponse": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean"
-        }
-      }
-    },
     "v1alpha1NotificationsServiceSendNotificationsResponse": {
       "type": "object",
       "properties": {
@@ -563,6 +662,14 @@
       }
     },
     "v1alpha1NotificationsServiceUpdateSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceUpsertScheduledNotificationsResponse": {
       "type": "object",
       "properties": {
         "success": {
