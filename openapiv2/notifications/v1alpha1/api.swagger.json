@@ -317,6 +317,190 @@
         }
       }
     },
+    "v1alpha1Notification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        },
+        "trackingToken": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "imageSmall": {
+          "type": "string"
+        },
+        "imageLarge": {
+          "type": "string"
+        },
+        "trackSeenUrl": {
+          "type": "string"
+        },
+        "trackDeliveredUrl": {
+          "type": "string"
+        },
+        "linkUrl": {
+          "type": "string"
+        },
+        "linkText": {
+          "type": "string"
+        },
+        "confirmText": {
+          "type": "string"
+        },
+        "confirmUrl": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "channels": {
+          "type": "object"
+        },
+        "firstDelivered": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        },
+        "firstSeen": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        },
+        "firstConfirmed": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        }
+      }
+    },
+    "v1alpha1NotificationEvent": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "creatorId": {
+          "type": "string"
+        },
+        "templateCode": {
+          "type": "string"
+        },
+        "templateVariants": {
+          "type": "object"
+        },
+        "data": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "preformatted": {
+          "$ref": "#/definitions/v1alpha1NotificationEventFormatting"
+        },
+        "settings": {
+          "type": "object"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "scheduling": {
+          "$ref": "#/definitions/v1alpha1NotificationEventScheduling"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "test": {
+          "type": "boolean"
+        },
+        "timeToLiveInSeconds": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1alpha1NotificationEventFormatting": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "object"
+        },
+        "body": {
+          "type": "object"
+        },
+        "confirmText": {
+          "type": "object"
+        },
+        "imageSmall": {
+          "type": "object"
+        },
+        "imageLarge": {
+          "type": "object"
+        },
+        "linkUrl": {
+          "type": "object"
+        },
+        "linkText": {
+          "type": "object"
+        },
+        "confirmMode": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationEventScheduling": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "nextWeekDay": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationHandledInfo": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        },
+        "lastNotification": {
+          "type": "string"
+        }
+      }
+    },
     "v1alpha1NotificationsServiceDeleteUsersResponse": {
       "type": "object",
       "properties": {
@@ -335,7 +519,7 @@
         "notifications": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/v1alpha1Notification"
           }
         }
       }
@@ -346,7 +530,7 @@
         "users": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }
       }
@@ -357,7 +541,7 @@
         "users": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }
       }
@@ -392,7 +576,7 @@
         "users": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }
       }
@@ -401,7 +585,7 @@
       "type": "object",
       "properties": {
         "notification": {
-          "type": "object"
+          "$ref": "#/definitions/v1alpha1NotificationEvent"
         },
         "expireAfter": {
           "type": "string",
@@ -412,6 +596,17 @@
         },
         "cronTrigger": {
           "$ref": "#/definitions/v1alpha1CronTrigger"
+        }
+      }
+    },
+    "v1alpha1SubscriptionSettings": {
+      "type": "object",
+      "properties": {
+        "topicPrefix": {
+          "type": "string"
+        },
+        "topicSettings": {
+          "type": "object"
         }
       }
     }
