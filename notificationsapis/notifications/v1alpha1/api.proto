@@ -6,11 +6,12 @@ package notifications.v1alpha1;
 import "google/protobuf/struct.proto";
 
 message ScheduledNotification {
-  NotificationEvent notification = 1;
-  int64 expire_after = 2;
+  string id = 1;
+  NotificationEvent notification = 2;
+  int64 expire_after = 3;
   oneof trigger {
-    ExecuteOnceTrigger execute_once_trigger = 3;
-    CronTrigger cron_trigger = 4;
+    ExecuteOnceTrigger execute_once_trigger = 4;
+    CronTrigger cron_trigger = 5;
   }
 }
 
