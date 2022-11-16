@@ -25,7 +25,9 @@ type NotificationsServiceClient interface {
 	GetNotifications(ctx context.Context, in *NotificationsServiceGetNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceGetNotificationsResponse, error)
 	SendNotifications(ctx context.Context, in *NotificationsServiceSendNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceSendNotificationsResponse, error)
 	UpdateSubscriptions(ctx context.Context, in *NotificationsServiceUpdateSubscriptionsRequest, opts ...grpc.CallOption) (*NotificationsServiceUpdateSubscriptionsResponse, error)
-	ScheduleNotifications(ctx context.Context, in *NotificationsServiceScheduleNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceScheduleNotificationsResponse, error)
+	UpsertScheduledNotifications(ctx context.Context, in *NotificationsServiceUpsertScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceUpsertScheduledNotificationsResponse, error)
+	GetScheduledNotifications(ctx context.Context, in *NotificationsServiceGetScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceGetScheduledNotificationsResponse, error)
+	DeleteScheduledNotifications(ctx context.Context, in *NotificationsServiceDeleteScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceDeleteScheduledNotificationsResponse, error)
 }
 
 type notificationsServiceClient struct {
@@ -99,9 +101,27 @@ func (c *notificationsServiceClient) UpdateSubscriptions(ctx context.Context, in
 	return out, nil
 }
 
-func (c *notificationsServiceClient) ScheduleNotifications(ctx context.Context, in *NotificationsServiceScheduleNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceScheduleNotificationsResponse, error) {
-	out := new(NotificationsServiceScheduleNotificationsResponse)
-	err := c.cc.Invoke(ctx, "/notifications.v1alpha1.NotificationsService/ScheduleNotifications", in, out, opts...)
+func (c *notificationsServiceClient) UpsertScheduledNotifications(ctx context.Context, in *NotificationsServiceUpsertScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceUpsertScheduledNotificationsResponse, error) {
+	out := new(NotificationsServiceUpsertScheduledNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationsServiceClient) GetScheduledNotifications(ctx context.Context, in *NotificationsServiceGetScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceGetScheduledNotificationsResponse, error) {
+	out := new(NotificationsServiceGetScheduledNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationsServiceClient) DeleteScheduledNotifications(ctx context.Context, in *NotificationsServiceDeleteScheduledNotificationsRequest, opts ...grpc.CallOption) (*NotificationsServiceDeleteScheduledNotificationsResponse, error) {
+	out := new(NotificationsServiceDeleteScheduledNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +139,9 @@ type NotificationsServiceServer interface {
 	GetNotifications(context.Context, *NotificationsServiceGetNotificationsRequest) (*NotificationsServiceGetNotificationsResponse, error)
 	SendNotifications(context.Context, *NotificationsServiceSendNotificationsRequest) (*NotificationsServiceSendNotificationsResponse, error)
 	UpdateSubscriptions(context.Context, *NotificationsServiceUpdateSubscriptionsRequest) (*NotificationsServiceUpdateSubscriptionsResponse, error)
-	ScheduleNotifications(context.Context, *NotificationsServiceScheduleNotificationsRequest) (*NotificationsServiceScheduleNotificationsResponse, error)
+	UpsertScheduledNotifications(context.Context, *NotificationsServiceUpsertScheduledNotificationsRequest) (*NotificationsServiceUpsertScheduledNotificationsResponse, error)
+	GetScheduledNotifications(context.Context, *NotificationsServiceGetScheduledNotificationsRequest) (*NotificationsServiceGetScheduledNotificationsResponse, error)
+	DeleteScheduledNotifications(context.Context, *NotificationsServiceDeleteScheduledNotificationsRequest) (*NotificationsServiceDeleteScheduledNotificationsResponse, error)
 }
 
 // UnimplementedNotificationsServiceServer should be embedded to have forward compatible implementations.
@@ -147,8 +169,14 @@ func (UnimplementedNotificationsServiceServer) SendNotifications(context.Context
 func (UnimplementedNotificationsServiceServer) UpdateSubscriptions(context.Context, *NotificationsServiceUpdateSubscriptionsRequest) (*NotificationsServiceUpdateSubscriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSubscriptions not implemented")
 }
-func (UnimplementedNotificationsServiceServer) ScheduleNotifications(context.Context, *NotificationsServiceScheduleNotificationsRequest) (*NotificationsServiceScheduleNotificationsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScheduleNotifications not implemented")
+func (UnimplementedNotificationsServiceServer) UpsertScheduledNotifications(context.Context, *NotificationsServiceUpsertScheduledNotificationsRequest) (*NotificationsServiceUpsertScheduledNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertScheduledNotifications not implemented")
+}
+func (UnimplementedNotificationsServiceServer) GetScheduledNotifications(context.Context, *NotificationsServiceGetScheduledNotificationsRequest) (*NotificationsServiceGetScheduledNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScheduledNotifications not implemented")
+}
+func (UnimplementedNotificationsServiceServer) DeleteScheduledNotifications(context.Context, *NotificationsServiceDeleteScheduledNotificationsRequest) (*NotificationsServiceDeleteScheduledNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteScheduledNotifications not implemented")
 }
 
 // UnsafeNotificationsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -288,20 +316,56 @@ func _NotificationsService_UpdateSubscriptions_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NotificationsService_ScheduleNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NotificationsServiceScheduleNotificationsRequest)
+func _NotificationsService_UpsertScheduledNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationsServiceUpsertScheduledNotificationsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NotificationsServiceServer).ScheduleNotifications(ctx, in)
+		return srv.(NotificationsServiceServer).UpsertScheduledNotifications(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/notifications.v1alpha1.NotificationsService/ScheduleNotifications",
+		FullMethod: "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationsServiceServer).ScheduleNotifications(ctx, req.(*NotificationsServiceScheduleNotificationsRequest))
+		return srv.(NotificationsServiceServer).UpsertScheduledNotifications(ctx, req.(*NotificationsServiceUpsertScheduledNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationsService_GetScheduledNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationsServiceGetScheduledNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).GetScheduledNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).GetScheduledNotifications(ctx, req.(*NotificationsServiceGetScheduledNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationsService_DeleteScheduledNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationsServiceDeleteScheduledNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).DeleteScheduledNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).DeleteScheduledNotifications(ctx, req.(*NotificationsServiceDeleteScheduledNotificationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -342,8 +406,16 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NotificationsService_UpdateSubscriptions_Handler,
 		},
 		{
-			MethodName: "ScheduleNotifications",
-			Handler:    _NotificationsService_ScheduleNotifications_Handler,
+			MethodName: "UpsertScheduledNotifications",
+			Handler:    _NotificationsService_UpsertScheduledNotifications_Handler,
+		},
+		{
+			MethodName: "GetScheduledNotifications",
+			Handler:    _NotificationsService_GetScheduledNotifications_Handler,
+		},
+		{
+			MethodName: "DeleteScheduledNotifications",
+			Handler:    _NotificationsService_DeleteScheduledNotifications_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
