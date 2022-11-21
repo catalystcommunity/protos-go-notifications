@@ -7,11 +7,12 @@ import "google/protobuf/struct.proto";
 
 message ScheduledNotification {
   string id = 1;
-  NotificationEvent notification = 2;
-  int64 expire_after = 3;
+  string user_id = 2;
+  NotificationEvent notification = 3;
+  int64 expire_after = 4;
   oneof trigger {
-    ExecuteOnceTrigger execute_once_trigger = 4;
-    CronTrigger cron_trigger = 5;
+    ExecuteOnceTrigger execute_once_trigger = 5;
+    CronTrigger cron_trigger = 6;
   }
 }
 
