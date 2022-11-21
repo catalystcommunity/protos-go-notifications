@@ -690,6 +690,9 @@
         "id": {
           "type": "string"
         },
+        "userId": {
+          "type": "string"
+        },
         "notification": {
           "$ref": "#/definitions/v1alpha1NotificationEvent"
         },
