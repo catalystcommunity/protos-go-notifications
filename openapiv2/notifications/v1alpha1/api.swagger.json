@@ -1,0 +1,723 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "notifications/v1alpha1/api.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "NotificationsService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/notifications": {
+      "get": {
+        "operationId": "NotificationsService_GetNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceGetNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channels",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "post": {
+        "operationId": "NotificationsService_SendNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceSendNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "NotificationsService"
+        ]
+      }
+    },
+    "/v1/notifications/scheduled": {
+      "get": {
+        "operationId": "NotificationsService_GetScheduledNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceGetScheduledNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "delete": {
+        "operationId": "NotificationsService_DeleteScheduledNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceDeleteScheduledNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "post": {
+        "operationId": "NotificationsService_UpsertScheduledNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceUpsertScheduledNotificationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "NotificationsService"
+        ]
+      }
+    },
+    "/v1/subscriptions": {
+      "put": {
+        "operationId": "NotificationsService_UpdateSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceUpdateSubscriptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "NotificationsService"
+        ]
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "operationId": "NotificationsService_GetUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceGetUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "delete": {
+        "operationId": "NotificationsService_DeleteUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceDeleteUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      },
+      "put": {
+        "operationId": "NotificationsService_UpsertUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceUpsertUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "NotificationsService"
+        ]
+      }
+    },
+    "/v1/users/list": {
+      "get": {
+        "operationId": "NotificationsService_ListUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1NotificationsServiceListUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NotificationsService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1alpha1CronTrigger": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1ExecuteOnceTrigger": {
+      "type": "object",
+      "properties": {
+        "fireAt": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1Notification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        },
+        "trackingToken": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "imageSmall": {
+          "type": "string"
+        },
+        "imageLarge": {
+          "type": "string"
+        },
+        "trackSeenUrl": {
+          "type": "string"
+        },
+        "trackDeliveredUrl": {
+          "type": "string"
+        },
+        "linkUrl": {
+          "type": "string"
+        },
+        "linkText": {
+          "type": "string"
+        },
+        "confirmText": {
+          "type": "string"
+        },
+        "confirmUrl": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "channels": {
+          "type": "object"
+        },
+        "firstDelivered": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        },
+        "firstSeen": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        },
+        "firstConfirmed": {
+          "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        }
+      }
+    },
+    "v1alpha1NotificationEvent": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "creatorId": {
+          "type": "string"
+        },
+        "templateCode": {
+          "type": "string"
+        },
+        "templateVariants": {
+          "type": "object"
+        },
+        "data": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "preformatted": {
+          "$ref": "#/definitions/v1alpha1NotificationEventFormatting"
+        },
+        "settings": {
+          "type": "object"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "scheduling": {
+          "$ref": "#/definitions/v1alpha1NotificationEventScheduling"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "test": {
+          "type": "boolean"
+        },
+        "timeToLiveInSeconds": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1alpha1NotificationEventFormatting": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "object"
+        },
+        "body": {
+          "type": "object"
+        },
+        "confirmText": {
+          "type": "object"
+        },
+        "imageSmall": {
+          "type": "object"
+        },
+        "imageLarge": {
+          "type": "object"
+        },
+        "linkUrl": {
+          "type": "object"
+        },
+        "linkText": {
+          "type": "object"
+        },
+        "confirmMode": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationEventScheduling": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "nextWeekDay": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationHandledInfo": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        },
+        "lastNotification": {
+          "type": "string"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceDeleteScheduledNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceDeleteUsersResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceGetNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1Notification"
+          }
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceGetScheduledNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "scheduledNotifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1ScheduledNotification"
+          }
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceGetUsersResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1NotificationUser"
+          }
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceListUsersResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1NotificationUser"
+          }
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceSendNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceUpdateSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceUpsertScheduledNotificationsResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1alpha1NotificationsServiceUpsertUsersResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1NotificationUser"
+          }
+        }
+      }
+    },
+    "v1alpha1ScheduledNotification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "notification": {
+          "$ref": "#/definitions/v1alpha1NotificationEvent"
+        },
+        "expireAfter": {
+          "type": "string",
+          "format": "int64"
+        },
+        "executeOnceTrigger": {
+          "$ref": "#/definitions/v1alpha1ExecuteOnceTrigger"
+        },
+        "cronTrigger": {
+          "$ref": "#/definitions/v1alpha1CronTrigger"
+        }
+      }
+    },
+    "v1alpha1SubscriptionSettings": {
+      "type": "object",
+      "properties": {
+        "topicPrefix": {
+          "type": "string"
+        },
+        "topicSettings": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

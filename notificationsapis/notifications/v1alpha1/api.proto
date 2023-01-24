@@ -1,0 +1,243 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+package notifications.v1alpha1;
+
+import "google/protobuf/struct.proto";
+
+message ScheduledNotification {
+  string id = 1;
+  string user_id = 2;
+  NotificationEvent notification = 3;
+  int64 expire_after = 4;
+  oneof trigger {
+    ExecuteOnceTrigger execute_once_trigger = 5;
+    CronTrigger cron_trigger = 6;
+  }
+}
+
+message NotificationUser {
+  string id = 1;
+  string email_address = 2;
+  string last_notification = 5;
+}
+
+message SubscriptionSettings {
+  string topic_prefix = 1;
+  google.protobuf.Struct topic_settings = 2;
+}
+
+message Notification {
+  string id = 1;
+  string subject = 2;
+  bool silent = 3;
+  string created = 4;
+  string updated = 5;
+  string tracking_token = 6;
+  string body = 7;
+  string image_small = 8;
+  string image_large = 9;
+  string track_seen_url = 10;
+  string track_delivered_url = 11;
+  string link_url = 12;
+  string link_text = 13;
+  string confirm_text = 14;
+  string confirm_url = 15;
+  string data = 16;
+  google.protobuf.Struct properties = 17;
+  google.protobuf.Struct channels = 18;
+  NotificationHandledInfo first_delivered = 19;
+  NotificationHandledInfo first_seen = 20;
+  NotificationHandledInfo first_confirmed = 21;
+}
+
+message NotificationHandledInfo {
+  string timestamp = 1;
+  string channel = 2;
+}
+
+message NotificationEvent {
+  string topic = 1;
+  string creator_id = 2;
+  string template_code = 3;
+  google.protobuf.Struct template_variants = 4;
+  string data = 5;
+  string timestamp = 6;
+  NotificationEventFormatting preformatted = 7;
+  google.protobuf.Struct settings = 8;
+  google.protobuf.Struct properties = 9;
+  NotificationEventScheduling scheduling = 10;
+  bool silent = 11;
+  bool test = 12;
+  int32 time_to_live_in_seconds = 13;
+}
+
+message NotificationEventFormatting {
+  google.protobuf.Struct subject = 1;
+  google.protobuf.Struct body = 2;
+  google.protobuf.Struct confirm_text = 3;
+  google.protobuf.Struct image_small = 4;
+  google.protobuf.Struct image_large = 5;
+  google.protobuf.Struct link_url = 6;
+  google.protobuf.Struct link_text = 7;
+  string confirm_mode = 8;
+}
+
+message NotificationEventScheduling {
+  string type = 1;
+  string next_week_day = 2;
+  string date = 3;
+  string time = 4;
+}
+
+message ExecuteOnceTrigger {
+  string fire_at = 1;
+}
+
+message CronTrigger {
+  string expression = 1;
+}
+
+message NotificationsServiceUpsertUsersRequest {
+  repeated NotificationUser users = 1;
+}
+
+message NotificationsServiceUpsertUsersResponse {
+  repeated NotificationUser users = 1;
+}
+
+message NotificationsServiceGetUsersRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceGetUsersResponse {
+  repeated NotificationUser users = 1;
+}
+
+message NotificationsServiceListUsersRequest {
+  int32 limit = 1;
+  int32 skip = 2;
+}
+
+message NotificationsServiceListUsersResponse {
+  repeated NotificationUser users = 1;
+}
+
+message NotificationsServiceDeleteUsersRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceDeleteUsersResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceGetNotificationsRequest {
+  string user_id = 1;
+  repeated string channels = 2;
+  string query = 3;
+  int32 limit = 4;
+  int32 skip = 5;
+}
+
+message NotificationsServiceGetNotificationsResponse {
+  int32 total = 1;
+  repeated Notification notifications = 2;
+}
+
+message NotificationsServiceSendNotificationsRequest {
+  repeated NotificationEvent notifications = 1;
+}
+
+message NotificationsServiceSendNotificationsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceUpdateSubscriptionsRequest {
+  string user_id = 1;
+  repeated SubscriptionSettings subscribe = 2;
+  repeated string unsubscribe = 3;
+}
+
+message NotificationsServiceUpdateSubscriptionsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceUpsertScheduledNotificationsRequest {
+  repeated ScheduledNotification notifications = 1;
+}
+
+message NotificationsServiceUpsertScheduledNotificationsResponse {
+  bool success = 1;
+}
+
+message NotificationsServiceGetScheduledNotificationsRequest {
+  repeated string ids = 1;
+  string user_id = 2;
+  int32 limit = 3;
+  int32 skip = 4;
+}
+
+message NotificationsServiceGetScheduledNotificationsResponse {
+  repeated ScheduledNotification scheduled_notifications = 1;
+}
+
+message NotificationsServiceDeleteScheduledNotificationsRequest {
+  repeated string ids = 1;
+}
+
+message NotificationsServiceDeleteScheduledNotificationsResponse {
+  bool success = 1;
+}
+
+service NotificationsService {
+  rpc UpsertUsers(NotificationsServiceUpsertUsersRequest) returns (NotificationsServiceUpsertUsersResponse) {
+    option (google.api.http) = {
+      put: "/v1/users"
+    };
+  };
+  rpc GetUsers(NotificationsServiceGetUsersRequest) returns (NotificationsServiceGetUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  };
+  rpc ListUsers(NotificationsServiceListUsersRequest) returns (NotificationsServiceListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/list"
+    };
+  };
+  rpc DeleteUsers(NotificationsServiceDeleteUsersRequest) returns (NotificationsServiceDeleteUsersResponse) {
+    option (google.api.http) = {
+      delete: "/v1/users"
+    };
+  };
+  rpc GetNotifications(NotificationsServiceGetNotificationsRequest) returns (NotificationsServiceGetNotificationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notifications"
+    };
+  };
+  rpc SendNotifications(NotificationsServiceSendNotificationsRequest) returns (NotificationsServiceSendNotificationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/notifications"
+    };
+  };
+  rpc UpdateSubscriptions(NotificationsServiceUpdateSubscriptionsRequest) returns (NotificationsServiceUpdateSubscriptionsResponse) {
+    option (google.api.http) = {
+      put: "/v1/subscriptions"
+    };
+  };
+  rpc UpsertScheduledNotifications(NotificationsServiceUpsertScheduledNotificationsRequest) returns (NotificationsServiceUpsertScheduledNotificationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/notifications/scheduled"
+    };
+  }
+  rpc GetScheduledNotifications(NotificationsServiceGetScheduledNotificationsRequest) returns (NotificationsServiceGetScheduledNotificationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notifications/scheduled"
+    };
+  }
+  rpc DeleteScheduledNotifications(NotificationsServiceDeleteScheduledNotificationsRequest) returns (NotificationsServiceDeleteScheduledNotificationsResponse) {
+    option (google.api.http) = {
+      delete: "/v1/notifications/scheduled"
+    };
+  };
+}
