@@ -670,6 +670,12 @@
       "properties": {
         "success": {
           "type": "boolean"
+        },
+        "notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1ScheduledNotification"
+          }
         }
       }
     },
