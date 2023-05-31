@@ -168,6 +168,7 @@ message NotificationsServiceUpsertScheduledNotificationsRequest {
 
 message NotificationsServiceUpsertScheduledNotificationsResponse {
   bool success = 1;
+  repeated ScheduledNotification notifications = 2;
 }
 
 message NotificationsServiceGetScheduledNotificationsRequest {
