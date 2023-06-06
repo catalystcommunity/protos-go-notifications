@@ -17,4 +17,3 @@ jobs:
       - uses: catalystsquad/action-semantic-release-general@v1
         with:
           token: ${{ secrets.AUTOMATION_PAT }}
-          release-config: "@catalystsquad/release-config-npm-no-publish"
