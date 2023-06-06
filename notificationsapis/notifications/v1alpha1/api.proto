@@ -49,6 +49,7 @@ message Notification {
   NotificationHandledInfo first_delivered = 19;
   NotificationHandledInfo first_seen = 20;
   NotificationHandledInfo first_confirmed = 21;
+  optional string correlation_id = 22;
 }
 
 message NotificationHandledInfo {
@@ -70,6 +71,7 @@ message NotificationEvent {
   bool silent = 11;
   bool test = 12;
   int32 time_to_live_in_seconds = 13;
+  optional string correlation_id = 14;
 }
 
 message NotificationEventFormatting {
@@ -137,6 +139,7 @@ message NotificationsServiceGetNotificationsRequest {
   string query = 3;
   int32 limit = 4;
   int32 skip = 5;
+  optional string correlation_id = 6;
 }
 
 message NotificationsServiceGetNotificationsResponse {
