@@ -1,8 +1,8 @@
 syntax = "proto3";
-import "google/api/annotations.proto";
 
 package notifications.v1alpha1;
 
+import "google/api/annotations.proto";
 import "google/protobuf/struct.proto";
 
 message ScheduledNotification {
