@@ -69,6 +69,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "correlationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -466,6 +472,9 @@
         },
         "firstConfirmed": {
           "$ref": "#/definitions/v1alpha1NotificationHandledInfo"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
@@ -511,6 +520,9 @@
         "timeToLiveInSeconds": {
           "type": "integer",
           "format": "int32"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
