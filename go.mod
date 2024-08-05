@@ -1,3 +1,3 @@
-module github.com/catalystsquad/protos-go-notifications
+module github.com/catalystcommunity/protos-go-notifications
 
 go 1.18

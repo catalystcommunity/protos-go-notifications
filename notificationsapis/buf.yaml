@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/catalystsquad/notificationsapis
+name: buf.build/catalystcommunity/notificationsapis
 deps:
   - buf.build/googleapis/googleapis
 lint:

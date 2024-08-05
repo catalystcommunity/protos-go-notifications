@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: crazy-max/ghaction-dump-context@v1
-      - uses: catalystsquad/action-validate-conventional-commits-pr@v1
+      - uses: catalystcommunity/action-validate-conventional-commits-pr@v1
   buf-lint:
     name: Buf Lint
     runs-on: ubuntu-latest
     steps:
       - uses: crazy-max/ghaction-dump-context@v1
-      - uses: catalystsquad/action-buf@v1
+      - uses: catalystcommunity/action-buf@v1
         with:
           buf-user: ${{ secrets.BUF_USER }}
           buf-token: ${{ secrets.BUF_TOKEN }}
@@ -35,7 +35,7 @@ jobs:
       - buf-lint
     steps:
       - uses: crazy-max/ghaction-dump-context@v1
-      - uses: catalystsquad/action-buf@v1
+      - uses: catalystcommunity/action-buf@v1
         with:
           buf-user: ${{ secrets.BUF_USER }}
           buf-token: ${{ secrets.BUF_TOKEN }}
@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: crazy-max/ghaction-dump-context@v1
       - uses: actions/checkout@v3
-      - uses: catalystsquad/action-protoc-go-inject-tag@v1
+      - uses: catalystcommunity/action-protoc-go-inject-tag@v1
         with:
           files: gen/proto/go/notifications/v1alpha1/*.pb.go
           commit-message: injected tags
@@ -61,7 +61,7 @@ jobs:
       - buf-generate
     steps:
       - uses: crazy-max/ghaction-dump-context@v1
-      - uses: catalystsquad/action-buf@v1
+      - uses: catalystcommunity/action-buf@v1
         with:
           buf-user: ${{ secrets.BUF_USER }}
           buf-token: ${{ secrets.BUF_TOKEN }}
