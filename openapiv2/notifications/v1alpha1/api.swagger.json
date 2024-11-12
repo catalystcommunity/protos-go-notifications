@@ -225,6 +225,24 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "unsubscribe",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
         "tags": [
           "NotificationsService"
         ]
@@ -386,6 +404,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -623,6 +642,7 @@
         "notifications": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1alpha1Notification"
           }
         }
@@ -634,6 +654,7 @@
         "scheduledNotifications": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1alpha1ScheduledNotification"
           }
         }
@@ -645,6 +666,7 @@
         "users": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }
@@ -656,6 +678,7 @@
         "users": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }
@@ -691,6 +714,7 @@
         "users": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1alpha1NotificationUser"
           }
         }

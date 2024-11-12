@@ -395,6 +395,7 @@ func local_request_NotificationsService_DeleteScheduledNotifications_0(ctx conte
 // UnaryRPC     :call NotificationsServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterNotificationsServiceHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server NotificationsServiceServer) error {
 
 	mux.Handle("PUT", pattern_NotificationsService_UpsertUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -403,20 +404,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_UpsertUsers_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_UpsertUsers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpsertUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpsertUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -426,20 +429,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_GetUsers_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_GetUsers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -449,20 +454,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/ListUsers", runtime.WithHTTPPathPattern("/v1/users/list"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/ListUsers", runtime.WithHTTPPathPattern("/v1/users/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_ListUsers_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_ListUsers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_ListUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_ListUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -472,20 +479,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_DeleteUsers_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_DeleteUsers_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_DeleteUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_DeleteUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -495,20 +504,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_GetNotifications_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_GetNotifications_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -518,20 +529,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/SendNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/SendNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_SendNotifications_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_SendNotifications_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_SendNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_SendNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -541,20 +554,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpdateSubscriptions", runtime.WithHTTPPathPattern("/v1/subscriptions"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpdateSubscriptions", runtime.WithHTTPPathPattern("/v1/subscriptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_UpdateSubscriptions_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_UpdateSubscriptions_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpdateSubscriptions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpdateSubscriptions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -564,20 +579,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_UpsertScheduledNotifications_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_UpsertScheduledNotifications_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpsertScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpsertScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -587,20 +604,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_GetScheduledNotifications_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_GetScheduledNotifications_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -610,20 +629,22 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_NotificationsService_DeleteScheduledNotifications_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_NotificationsService_DeleteScheduledNotifications_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_DeleteScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_DeleteScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -633,21 +654,21 @@ func RegisterNotificationsServiceHandlerServer(ctx context.Context, mux *runtime
 // RegisterNotificationsServiceHandlerFromEndpoint is same as RegisterNotificationsServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterNotificationsServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
+	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
 	}
 	defer func() {
 		if err != nil {
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 			return
 		}
 		go func() {
 			<-ctx.Done()
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 		}()
 	}()
@@ -665,26 +686,28 @@ func RegisterNotificationsServiceHandler(ctx context.Context, mux *runtime.Serve
 // to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "NotificationsServiceClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "NotificationsServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "NotificationsServiceClient" to call the correct interceptors.
+// "NotificationsServiceClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client NotificationsServiceClient) error {
 
 	mux.Handle("PUT", pattern_NotificationsService_UpsertUsers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_UpsertUsers_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_UpsertUsers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpsertUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpsertUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -692,19 +715,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_GetUsers_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_GetUsers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -712,19 +737,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/ListUsers", runtime.WithHTTPPathPattern("/v1/users/list"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/ListUsers", runtime.WithHTTPPathPattern("/v1/users/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_ListUsers_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_ListUsers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_ListUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_ListUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -732,19 +759,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteUsers", runtime.WithHTTPPathPattern("/v1/users"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteUsers", runtime.WithHTTPPathPattern("/v1/users"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_DeleteUsers_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_DeleteUsers_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_DeleteUsers_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_DeleteUsers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -752,19 +781,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_GetNotifications_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_GetNotifications_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -772,19 +803,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/SendNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/SendNotifications", runtime.WithHTTPPathPattern("/v1/notifications"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_SendNotifications_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_SendNotifications_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_SendNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_SendNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -792,19 +825,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpdateSubscriptions", runtime.WithHTTPPathPattern("/v1/subscriptions"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpdateSubscriptions", runtime.WithHTTPPathPattern("/v1/subscriptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_UpdateSubscriptions_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_UpdateSubscriptions_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpdateSubscriptions_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpdateSubscriptions_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -812,19 +847,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/UpsertScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_UpsertScheduledNotifications_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_UpsertScheduledNotifications_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_UpsertScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_UpsertScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -832,19 +869,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/GetScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_GetScheduledNotifications_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_GetScheduledNotifications_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_GetScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_GetScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -852,19 +891,21 @@ func RegisterNotificationsServiceHandlerClient(ctx context.Context, mux *runtime
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/notifications.v1alpha1.NotificationsService/DeleteScheduledNotifications", runtime.WithHTTPPathPattern("/v1/notifications/scheduled"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_NotificationsService_DeleteScheduledNotifications_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
+		resp, md, err := request_NotificationsService_DeleteScheduledNotifications_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_NotificationsService_DeleteScheduledNotifications_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_NotificationsService_DeleteScheduledNotifications_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
