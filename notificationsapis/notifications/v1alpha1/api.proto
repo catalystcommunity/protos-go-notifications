@@ -1,3 +1,5 @@
+// api.proto
+
 syntax = "proto3";
 
 package notifications.v1alpha1;
