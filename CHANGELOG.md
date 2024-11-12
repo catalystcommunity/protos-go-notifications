@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/catalystcommunity/protos-go-notifications/compare/v1.0.0...v1.0.1) (2024-11-12)
+
+
+### Bug Fixes
+
+* move to catalystcommunity ([4c921f3](https://github.com/catalystcommunity/protos-go-notifications/commit/4c921f37451c47fc2cb717ee4fe4f76f752562c1))
+* update buf plugins, trigger release ([#8](https://github.com/catalystcommunity/protos-go-notifications/issues/8)) ([e72afc8](https://github.com/catalystcommunity/protos-go-notifications/commit/e72afc852d8467bba37558a9e74a769e56768738))
+
 # 1.0.0 (2023-06-06)
 
 
