@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/catalystcommunity/protos-go-notifications/compare/v1.0.1...v1.0.2) (2024-11-12)
+
+
+### Bug Fixes
+
+* update dependencies ([#9](https://github.com/catalystcommunity/protos-go-notifications/issues/9)) ([ccedf0a](https://github.com/catalystcommunity/protos-go-notifications/commit/ccedf0ab31a94359a5092b7ecfc2dc262be3b132)), closes [#8](https://github.com/catalystcommunity/protos-go-notifications/issues/8)
+
 ## [1.0.1](https://github.com/catalystcommunity/protos-go-notifications/compare/v1.0.0...v1.0.1) (2024-11-12)
 
 
